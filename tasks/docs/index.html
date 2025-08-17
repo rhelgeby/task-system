@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Task System Documentation</title>
+	<style>
+		details {
+			margin-left: 1em;
+		}
+		span.description {
+			margin-left: 1em;
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+
+<h1>Task System Documentation</h1>
+
+<h2>Description</h2>
+<p>This is a system for organizing various general tasks using a manual-first approach and designed to last for life. Parsers can be used on top of it for a better overview, but must reflect manual changes done to files.</p>
+
+<h2>Folder Tree</h2>
+<p>This table describes the root folder tree. It is your choice how you want to organize within them. The root folder tree is not a requirement, just a suggestion.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Folder</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>archive</td>
+			<td>Archive of completed or abandoned tasks, which are moved here.</td>
+		</tr>
+		<tr>
+			<td>docs</td>
+			<td>This documentation. It is best that documentation follows the task system over its lifetime. Things may change.</td>
+		</tr>
+		<tr>
+			<td>store</td>
+			<td>Open tasks. The main store of tasks that are ongoing, recurring or just ideas.</td>
+		</tr>
+		<tr>
+			<td>templates</td>
+			<td>Various templates for creating new items, ready to copy from.</td>
+		</tr>
+	</tbody>
+</table>
+
+<h3>Organization Example</h3>
+<p>This is an example of how you can organize your folders.</p>
+<details open>
+	<summary>tasks</summary>
+	<details>
+		<summary>archive</summary>
+		<details open>
+			<summary>2025</summary>
+			<details open>
+				<summary>abandoned</summary>
+				<span class="description">Move your abandoned tasks here.</span>
+			</details>
+			<details open>
+				<summary>completed</summary>
+				<span class="description">Move your completed tasks here.</span>
+			</details>
+		</details>
+	</details>
+	
+	<details>
+		<summary>docs</summary>
+		<span class="description">Documentation for the task system.</span>
+	</details>
+	
+	<details open>
+		<summary>store</summary>
+		<details>
+			<summary>on-demand</summary>
+			<span class="description">Tasks on a need-to basis.</span>
+		</details>
+		<details>
+			<summary>recurring</summary>
+			<span class="description">Repeated tasks.</span>
+			<details>
+				<summary>yearly</summary>
+			</details>
+			<details>
+				<summary>monthly</summary>
+			</details>
+			<details>
+				<summary>weekly</summary>
+			</details>
+		</details>
+		<details>
+			<summary>term-long</summary>
+			<span class="description">Long term tasks.</span>
+			<details>
+				<summary>priority-high</summary>
+			</details>
+			<details>
+				<summary>priority-low</summary>
+			</details>
+			<details>
+				<summary>priority-medium</summary>
+			</details>
+		</details>
+		<details>
+			<summary>term-medium</summary>
+			<span class="description">Medium term tasks.</span>
+			<details>
+				<summary>priority-high</summary>
+			</details>
+			<details>
+				<summary>priority-low</summary>
+			</details>
+			<details>
+				<summary>priority-medium</summary>
+			</details>
+		</details>
+		<details>
+			<summary>term-short</summary>
+			<span class="description">Short term tasks.</span>
+			<details>
+				<summary>priority-high</summary>
+			</details>
+			<details>
+				<summary>priority-low</summary>
+			</details>
+			<details>
+				<summary>priority-medium</summary>
+			</details>
+		</details>
+		<details>
+			<summary>unscheduled</summary>
+			<span class="description">Tasks not in a schedule. Maybe you haven't decided or they are not important enough.</span>
+		</details>
+	</details>
+	
+	<details open>
+		<summary>templates</summary>
+		<details open>
+			<summary>new-task</summary>
+			<span class="description">Template folder for new tasks. Copy this folder when creating new tasks.</span>
+			<ul style="margin-top: 0;">
+				<li>task.md - Task description and notes.</li>
+				<li>metadata.txt - Metadata for parsers.</li>
+			</ul>
+		</details>
+	</details>
+</details>
+
+<p>You can categorize further or make adjustmends depending on your needs and preferences.</p>
+
+<h2>Task</h2>
+<p>A task is simply a folder with a metadata.txt file inside. The task folder may have other arbitrary files and sub folders relevant to the task.</p>
+
+<p>Generally you would want a main document describing the task. This could be a simple text file or a more advanced format.</p>
+
+<p>The state of the task is reflected by its location in the folder structure. Completed or abandoned tasks are meant to be moved away to an archive. You could have state in the metadata.txt but it may be redundant and easy to get out of sync when working manually. Therefore, the state of the task is easier to represent by its location in the folder structure. You are meant to move the task folder out of the way once you are done with it (archive or delete).</p>
+
+<h3>Metadata.txt</h3>
+<p>Each task should have a file that describes task details. This makes it possible to destinguish task folders from category folders in the structure. It is a simple case insensitive format that is easy to read, write and parse. Lines starting with the hash character ("#") are treated as comments and should be ignored by the parser.</p>
+
+<p>All attributes are optional to tasks, but there is a metadata-defaults.txt file in the templates folder with some default values if an attribute is missing.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Attribute</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Version</td>
+			<td>Text</td>
+			<td>Metadata format version. This is mainly for future proofing and make it easier for parsers. <a href="https://semver.org/">Semantic version numbers</a> are recommended. It is best to have this as the first attribute.</td>
+		<tr>
+		<tr>
+			<td>Title</td>
+			<td>Text</td>
+			<td>Short title for the task, suitable for use in lists.</td>
+		<tr>
+		<tr>
+			<td>Summary</td>
+			<td>Text</td>
+			<td>A brief summary that is useful when browsing through tasks.</td>
+		<tr>
+		<tr>
+			<td>Main-File</td>
+			<td>Text</td>
+			<td>Name of which file that is considered the entry point of the task, in case there are multiple documents. Typically the name of the file would indicate it and this attribute is not needed. The attribute can also provide a hint to parsers.</td>
+		<tr>
+		<tr>
+			<td>Created</td>
+			<td>Date</td>
+			<td>Task creation date. ISO 8601 format is best here to make it easier for parsers, but it could be any format.</td>
+		<tr>
+		<tr>
+			<td>Due-Date</td>
+			<td>Date</td>
+			<td>When the task is due, if relevant.</td>
+		<tr>
+		<tr>
+			<td>Recurring</td>
+			<td>Flag</td>
+			<td>Whether the task is done more than once. Typically "yes" or "no".</td>
+		<tr>
+		<tr>
+			<td>Recurring-Period</td>
+			<td>Period</td>
+			<td>How often the task is repeated (such as "weekly" or "yearly"), if relevant. This attribute may be redundant depending on how your structure your store.</td>
+		<tr>
+		<tr>
+			<td>Tags</td>
+			<td>List</td>
+			<td>Comma separated list of arbitrary tag names. Useful for searching or sorting.</td>
+		<tr>
+	</tbody>
+</table>
+
+<p>You can add your own attributes on a need-to basis to aid parsers in presenting or sorting tasks. Though, the parser must be made to know about your custom attributes.</p>
+
+<h4>Example</h4>
+<p>This shows a small metadata.txt file with attributes relevant to the task. Other attributes are left out.</p>
+
+<blockquote><pre>
+Version: 1.0
+Title: Task Title
+Summary: A brief summary.
+Created: 2025-01-30
+Tags: example, simple-task
+</pre></blockquote>
+
+<h3>Sensitive Tasks</h3>
+<p>Some tasks may have content (such as medical records) that may be too sensitive to store in plain text. This task system does not specify how sensitive material should be handled, but provides some ideas on how to use it in combination with the task system. In metadata.txt, you can mark the task as encrypted. Either the task content could be in this in encrypted form, or you can refer to another location.</p>
+
+<p>Using a password manager, such as KeePassXC, is highly recommended. You can store the encryption keys or passwords in that database. Optionally you can also refer to the password database in metadata.txt for unlocking the content.</p>
+
+<p>For short-term tasks you can work with the task unencrypted, and then encrypt when archiving the task. A password protected ZIP file may be sufficient, with the password stored in the password database.</p>
+
+<p>All this depends on your risk tolerance and how the task system is stored. How secure you want it to be depends on you. Encryption is out of scope for the task system itself.</p>
+
+<h2>Task Store</h2>
+This folder contains all tasks and is the root of the category folder hierarchy. Task folders are placed where suitable.
+
+<p>The folder structure is largely arbitrary and user defined. This allows for organizing tasks as the user decides. This Git repository contains an example of one of many possible structures.</p>
+
+<p>Parsers will use the structure to represent the state or status of the task, depending on how you organize it.</p>
+
+<h2>Templates</h2>
+<p>Contains templates to make task creation easier. It has a folder template for a new task with a basic template with metadata.txt and task.md set up.</p>
+
+<p>The metadata-default.txt file has some default values to aid in parsing. It contains placeholder values for attributes to make it possible to list the task.</p>
+
+</body>
+</html>

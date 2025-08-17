@@ -1,0 +1,9 @@
+Version: 1.0
+Title: Title
+Summary: 
+Created: YYYY-MM-DD
+DueDate: 
+Recurring: no
+#Recurring-period: yearly/weekly/Mondays/mornings
+Tags: 
+

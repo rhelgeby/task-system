@@ -1,0 +1,9 @@
+# Sets some default values for metadata.txt if not specified when parsing. This helps a parser to make the task viewable by using placeholder values.
+
+# Assume version 1.0 if not specified. Default to newest version, which is to try to parse all since the parser must be lenient.
+Version: 1.0
+
+Title: Unnamed Task
+Summary: (no summary)
+Recurring: no
+
